@@ -1,6 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { getToolName, isToolUIPart } from "ai";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
@@ -46,9 +47,35 @@ export default function Home() {
             <span className="font-semibold">
               {message.role === "user" ? "You" : "AI"}:
             </span>{" "}
-            {message.parts.map((part, i) =>
-              part.type === "text" ? <span key={i}>{part.text}</span> : null,
-            )}
+            {message.parts.map((part, i) => {
+              if (part.type === "text") {
+                return <span key={i}>{part.text}</span>;
+              }
+              if (isToolUIPart(part)) {
+                const toolName = getToolName(part);
+                return (
+                  <div
+                    key={i}
+                    className="mt-2 text-sm bg-yellow-50 border border-yellow-200 rounded p-2"
+                  >
+                    <div className="font-mono text-yellow-700">
+                      🔧 {toolName}(
+                      {part.state !== "input-streaming"
+                        ? JSON.stringify(part.input)
+                        : "..."}
+                      )
+                    </div>
+                    {part.state === "output-available" && (
+                      <div className="text-green-700 mt-1">
+                        → {JSON.stringify(part.output)}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return null;
+            })}
           </div>
         ))}
         {(status === "streaming" || status === "submitted") && (
