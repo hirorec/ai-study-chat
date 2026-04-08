@@ -1,15 +1,17 @@
 # CLAUDE.md
 
 ## プロジェクト全体の目的
+
 [キャリア資産戦略メモ](https://docs.google.com/document/d/1W84iqUG9Tl7PgdzKJugH5me_Umo7VFfE/edit) に基づいて
 3-3. 月別学習ロードマップの学習を目的とする。
 
-
 ## 注意事項
+
 - Vercel AI SDK は破壊的変更が多い。コードを提案する前に必ず `node_modules/@ai-sdk/react/dist/index.d.ts` および `node_modules/ai/dist/index.d.ts` の型定義を確認し、最新の API を使用すること。
 - ドキュメントや学習資料のサンプルコードは古いバージョン (v5以前) のままの場合があるため、鵜呑みにしない。
 
 ## 本プロジェクトの目的
+
 Vercel AI SDK基礎を学ぶ。
 公式ドキュメントを読みながらuseChat / streamTextを使ったシンプルなストリーミングチャットを1本完成させる。OpenAI APIキー取得・Vercelデプロイまで完了させること。
 
@@ -19,3 +21,31 @@ Vercel AI SDK基礎を学ぶ。
 「xxxというファイルを作成してください」
 「xxxというメソッドを追加して以下のコードを反映してください」
 等、会話形式で機能ごとにAIが指示してくれるようにしたい。
+
+## 学習ロードマップ
+
+### 基盤実装（完了）
+
+- [x] Next.js プロジェクト作成
+- [x] `ai`, `@ai-sdk/openai`, `@ai-sdk/react` インストール
+- [x] API Route (`/api/chat`) — `streamText` + `convertToModelMessages` + `toUIMessageStreamResponse`
+- [x] フロントエンド (`page.tsx`) — `useChat` でストリーミングチャットUI
+- [x] OpenAI APIキー設定・動作確認
+
+### レベル1: UI/UX の基礎
+
+- [x] 1. ストリーミング中のローディング表示 — `status` を使って「AIが考え中...」を表示
+- [x] 2. スクロール制御 — メッセージが増えたら自動で最下部にスクロール
+- [x] 3. Enter キー送信 — フォームをキーボードで操作できるように
+
+### レベル2: AI SDK の機能理解
+
+- [x] 4. システムプロンプト設定 — AIのキャラクターや役割を設定する
+- [x] 5. 会話リセットボタン — `setMessages([])` でチャット履歴をクリア
+- [x] 6. トークン使用量の表示 — `onFinish` コールバックでトークン数を確認
+
+### レベル3: より実践的な機能
+
+- [x] 7. エラーハンドリング — API失敗時のメッセージ表示
+- [x] 8. 温度（temperature）パラメータ調整 — 回答のランダム性をUIから変更
+- [x] 9. ストリーミング停止ボタン — `stop()` で生成を中断
