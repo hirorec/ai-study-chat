@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Study Chat
 
-## Getting Started
+Vercel AI SDK の基礎を学ぶためのハンズオンプロジェクト。  
+`useChat` / `streamText` を使ったストリーミングチャットを中心に、AI SDK の主要機能を一通り実装しています。
 
-First, run the development server:
+## デモ
+
+https://ai-study-chat.vercel.app/
+
+## 機能一覧
+
+| ページ | パス | 概要 |
+|--------|------|------|
+| AI チャット | `/` | ストリーミングチャット、Tool Calling（時刻取得・計算・天気）、Temperature調整 |
+| 構造化出力 | `/structured` | `generateText` + `Output.object()` でJSONレスポンスを取得 |
+| ストリーミング構造化出力 | `/structured-stream` | `streamText` + `Output.object()` でパーシャルJSONをリアルタイム表示 |
+| マルチモーダル | `/multimodal` | 画像 + テキストをAIに送信して回答を得る |
+
+## 学習トピック
+
+- ストリーミングチャット (`useChat`, `streamText`, `convertToModelMessages`)
+- UI/UX（ローディング表示、自動スクロール、Enter送信、停止ボタン）
+- システムプロンプト、Temperature制御
+- Tool Calling（ツール定義・実行・結果表示）
+- 構造化出力（Zodスキーマ、`Output.object()`）
+- ストリーミング構造化出力（`parsePartialJson` によるパーシャル表示）
+- マルチモーダル入力（画像プレビュー、`sendMessage` の `files` オプション）
+- エラーハンドリング、トークン使用量の確認
+
+## 技術スタック
+
+- **Next.js** 16 (App Router)
+- **Vercel AI SDK** v6 (`ai`, `@ai-sdk/openai`, `@ai-sdk/react`)
+- **Tailwind CSS** v4
+- **TypeScript**
+- **Zod** v4
+
+## セットアップ
+
+```bash
+npm install
+```
+
+`.env.local` を作成し、OpenAI API キーを設定:
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+開発サーバーを起動:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 でアクセスできます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## デプロイ
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHub リポジトリと Vercel を連携し、環境変数 `OPENAI_API_KEY` を設定してデプロイ。
