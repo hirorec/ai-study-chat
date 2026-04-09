@@ -39,6 +39,9 @@ export default function RootLayout({
           <Link href="/structured-stream" className="hover:text-blue-500">
             ストリーミング構造化出力
           </Link>
+          <Link href="/multimodal" className="hover:text-blue-500">
+            マルチモーダル
+          </Link>
         </nav>
         {children}
       </body>
